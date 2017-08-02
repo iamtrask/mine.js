@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/OpenMined/Mine.js.git"
   },
+  "engine": {
+    "node": "^8.0.0",
+    "npm": ">5.0.0"
+  },
   "keywords": [
     "open-mined",
     "privacy",
@@ -21,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/OpenMined/Mine.js/issues"
   },
-  "homepage": "https://github.com/OpenMined/Mine.js#readme"
+  "homepage": "https://github.com/OpenMined/Mine.js#readme",
+  "devDependencies": {
+    "standard": "^10.0.2"
+  }
 }
