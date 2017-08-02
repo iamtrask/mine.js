@@ -42,5 +42,8 @@
     "ipfs-api": "^14.1.1",
     "node-schedule": "^1.2.3",
     "web3": "^1.0.0-beta.14"
+  },
+  "standard": {
+    "globals": [ "config" ]
   }
 }
