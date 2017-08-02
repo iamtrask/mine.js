@@ -18,7 +18,12 @@ web3.eth.getAccounts().then(acc => console.log(acc.slice(0, 10)))
 
 const modelRepository = new web3.eth.Contract(contract, contractAddress)
 
-console.log(modelRepository.methods)
+modelRepository.methods.getNumModels().call({from: mineAddress}).then(res => console.log(`${parseInt(res[0])} models on the contract`))
+
+for (let modelId = 0; modelId < 1; modelId++) {
+  modelRepository.methods.getModel(modelId).call({from: mineAddress}).then(d => console.log(`model#${modelId}: owner=${d[0]}, bounty=${web3.utils.fromWei(d[1], 'ether')} ETH, initial_error=${d[2]}, target_error=${d[3]}, ipfsAddress=${d[4]}`))
+}
+
 // run every 5 seconds
 const s = schedule.scheduleJob('*/5 * * * * *', () => {
 })
