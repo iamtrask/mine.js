@@ -2,13 +2,15 @@
   "name": "mine.js",
   "version": "0.0.1",
   "description": "node.JS implementation of a Open Mined data mine",
+  "main": "app.js",
   "bin": {
-    "mine": "cli.js"
+    "mine": "cli/mine.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "env-start": "docker-compose -f setup/docker-compose.yml up -d",
-    "env-stop": "docker-compose -f setup/docker-compose.yml stop"
+    "env-stop": "docker-compose -f setup/docker-compose.yml stop",
+    "start": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -32,12 +34,13 @@
   "homepage": "https://github.com/OpenMined/Mine.js#readme",
   "devDependencies": {
     "ava": "^0.21.0",
+    "nodemon": "^1.11.0",
     "standard": "^10.0.2"
   },
   "dependencies": {
     "commander": "^2.11.0",
     "ipfs-api": "^14.1.1",
     "node-schedule": "^1.2.3",
-    "w3.js": "^1.0.5"
+    "web3": "^1.0.0-beta.14"
   }
 }

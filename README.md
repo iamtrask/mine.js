@@ -8,6 +8,10 @@
 npm install
 ```
 
+### Known Issues
+
+* the `npm install` requires a python executable `>= v2.5.0 & < 3.0.0` (child-dep of web3)
+
 ## Usage
 
 You need to start the following things before you can use your mine:
