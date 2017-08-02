@@ -6,7 +6,9 @@
     "mine": "cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "env-start": "docker-compose -f setup/docker-compose.yml up -d",
+    "env-stop": "docker-compose -f setup/docker-compose.yml stop"
   },
   "repository": {
     "type": "git",

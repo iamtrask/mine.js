@@ -1,6 +1,7 @@
 version: '2'
 services:
   ipfs:
+    image: "ipfs/go-ipfs:latest"
     ports:
      - "8080:8080"
      - "4001:4001"
@@ -8,8 +9,8 @@ services:
     volumes:
      - ./data/ipfs/data:/data/ipfs
      - ./data/ipfs/staging:/export
-    image: "ipfs/go-ipfs:latest"
   testrpc:
-    image: "ethereumjs/testrpc:latest"
+    image: "harshjv/testrpc:latest"
     ports:
       - "8545:8545"
+    command: --accounts 400

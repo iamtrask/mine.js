@@ -14,6 +14,16 @@ You need to start the following things before you can use your mine:
 * blockchain (testrpc for now)
 * ipfs daemon
 
+Requires:
+* docker-compose
+
+```sh
+npm run env-start
+
+# or to stop
+npm run env-stop
+```
+
 ## License
 
 This code is licensed under [AGPL-3.0](LICENSE). If you have valid reason for us to consider going for a more permissive license please get in touch, we're not monsters 👾
