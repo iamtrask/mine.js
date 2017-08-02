@@ -41,6 +41,8 @@ npm run env-stop
 
 After you have the surrounding services mocked you can star the `Mine` using `npm start` which will put the application into a developer mode with [nodemon](https://github.com/remy/nodemon) acting as as serversided live-reload.
 
+You might want to head over to [pySonar](https://github.com/OpenMined/PySonar/blob/master/notebooks/Sonar%20-%20Decentralized%20Model%20Training%20Simulation%20(local%20blockchain).ipynb) and execute the notebook until **Step 1** to bootstrap your blockchain with some models. Feel free to execute additional steps to mock partially trained models.
+
 ```sh
 npm start
 ```
