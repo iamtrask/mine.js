@@ -1,0 +1,15 @@
+version: '2'
+services:
+  ipfs:
+    ports:
+     - "8080:8080"
+     - "4001:4001"
+     - "5001:5001"
+    volumes:
+     - ./data/ipfs/data:/data/ipfs
+     - ./data/ipfs/staging:/export
+    image: "ipfs/go-ipfs:latest"
+  testrpc:
+    image: "ethereumjs/testrpc:latest"
+    ports:
+      - "8545:8545"

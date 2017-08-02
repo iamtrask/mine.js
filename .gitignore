@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# data directory for ipfs/mine data
+/data/*
