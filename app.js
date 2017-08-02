@@ -17,11 +17,15 @@ async function checkForModels () {
   console.log(`${modelCount} models found`)
 
   for (let modelId = 0; modelId < modelCount; modelId++) {
-    console.log(modelId)
     const model = await sonar.getModel(modelId)
-    console.log(`model#${modelId}: ${JSON.stringify(model)}`)
+    console.log(`model#${modelId}: ${model.weightsAddress}`)
+    if (model.gradientCount > 0) {
+      const gradients = await sonar.getModelGradients(modelId, model.gradientCount - 1)
+      console.log(`latest gradient#${gradients.id}: ${gradients.weightsAddress[0] + gradients.weightsAddress[1]}`)
+    }
   }
-  setTimeout(checkForModels, config.pollInterval * 1000)
+
+  // setTimeout(checkForModels, config.pollInterval * 1000)
 }
 
 checkForModels()
