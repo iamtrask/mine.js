@@ -13,4 +13,4 @@ services:
     image: "harshjv/testrpc:latest"
     ports:
       - "8545:8545"
-    command: --accounts 400
+    command: --accounts 400 --seed 123123
