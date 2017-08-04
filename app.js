@@ -3,7 +3,7 @@
  * - create schedule to poll blockchain
  */
 
-const schedule = require('node-schedule')
+// const schedule = require('node-schedule')
 global.config = require('./config')
 const Sonar = require('./lib/sonar')
 
