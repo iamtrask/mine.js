@@ -20,7 +20,10 @@
 The code was developed using node **v8.1.2** and it is recommend to stick around this version.
 
 ```sh
+# install this project
 npm install
+# in addition you need the syft python library installed
+pip install git+https://github.com/OpenMined/Syft.git
 ```
 
 ### 🏁 Start
@@ -53,8 +56,8 @@ Currently the `Mine` polls a fixed `contractAddress` for available models and li
 Features that should follow: 
 
 * [x] Poll `Sonar` for available models
-* [ ] Download the model/weights via `IPFS`
-* [ ] Train the model using `syft`
+* [x] Download the model/weights via `IPFS`
+* [x] Train the model using `syft`
 * [ ] Get `contractAddress`/`mineAddress` via arguments/env variables
 * [ ] Filter models for those matching available training data (requires feature change on Sonar contract)
 

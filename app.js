@@ -10,7 +10,7 @@ const ipfsAPI = require('ipfs-api')
 const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
-const child_process = require('child_process')
+const spawn = require('child_process').spawn
 
 // magic numbers that need to be parsed via CLI
 const contractAddress = '0x9c625c13048a5f5a374acc4ed6801211020f212a'
@@ -40,14 +40,15 @@ async function checkForModels () {
     }
 
     // download & train the model
-    // -model ./encrypted.pickle -input_data data/diabetes_input.csv -target_data data/diabetes_output.csv -gradient ./encrypted_gradient.pickle
+    // create folder structure
     const tmpDirectory = tmp.dirSync()
     const tmpPaths = {}
     Object.keys(config.syft.tmpFiles)
     .forEach(e => {
       tmpPaths[e] = path.join(tmpDirectory.name, config.syft.tmpFiles[e])
     })
-    console.log(tmpPaths)
+
+    // download the model from IPFS
     const modelFh = fs.createWriteStream(tmpPaths.model)
     await new Promise((resolve, reject) => {
       ipfs.files.get(model.weightsAddress, (err, stream) => {
@@ -56,15 +57,42 @@ async function checkForModels () {
         stream.on('end', () => resolve(`weight stored to ${tmpPaths.model}`))
       })
     })
+
     // spawn syft
     const childOpts = {
       shell: true,
-      stdio: 'inherit',
+      stdio: config.debug ? 'inherit' : ['ignore', 'ignore', process.stderr],
       cwd: '/developer/anoff/openmined-syft'
     }
-    child_process.spawn(`source activate openmined && python bin/syft_cmd.py generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
+    const sp = spawn(`syft_cmd generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
+    await new Promise((resolve, reject) => {
+      sp.on('close', code => {
+        if (code) reject(new Error(`error while calling syft, code=${code}`))
+        resolve()
+      })
+    })
+    console.log('DONE TRAINING \\o/!')
+
+    // put new gradients into IPFS
+    // deploy_trans = self.get_transaction(from_addr).addGradient(model_id,[ipfs_address[0:32],ipfs_address[32:]])
+    const gradientFh = fs.createReadStream(tmpPaths.gradient)
+    const gradientsAddress = await new Promise((resolve, reject) => {
+      const files = [{
+        path: tmpPaths.gradient,
+        content: gradientFh
+      }]
+
+      ipfs.files.add(files, (err, res) => {
+        if (err) console.error(err)
+        const obj = res.find(e => e.path === tmpPaths.gradient)
+        resolve(obj.hash)
+      })
+    })
+    // upload new gradient address to sonar
+    const response = await sonar.addGradient(modelId, gradientsAddress)
+    console.log(response)
   }
-  // setTimeout(checkForModels, config.pollInterval * 1000)
+  if (config.pollInterval > 0) setTimeout(checkForModels, config.pollInterval * 1000)
 }
 
 checkForModels()
