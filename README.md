@@ -1,4 +1,4 @@
-# Mine.js 🗻⚒
+# mine.js 🗻⚒
 
 > nodeJS implementation of an [Open Mined](http://openmined.org) data mine
 
