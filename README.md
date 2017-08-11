@@ -60,10 +60,14 @@ Features that should follow:
 * [x] Train the model using `syft`
 * [ ] Get `contractAddress`/`mineAddress` via arguments/env variables
 * [ ] Filter models for those matching available training data (requires feature change on Sonar contract)
+* [ ] Proper docker setup to allow multiple mines
 
 ## 🐞 Known Issues
 
 * the `npm install` requires a python executable `>= v2.5.0 & < 3.0.0` (child-dep of web3)
+* with dockerized IPFS/testrpc there are a lot of connection issues
+    * first run on a new docker env is working ~90%
+* the `mineAddress` provided by `docker-compose` [does not provide enough funds](funding_issue.png) to submit new gradients
 
 ## ⚖️ License
 
