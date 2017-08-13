@@ -13,26 +13,24 @@ const fs = require('fs')
 const spawn = require('child_process').spawn
 
 // magic numbers that need to be parsed via CLI
-const contractAddress = '0x656385f6914469fff55c34299258ce965aa134bf'
-const mineAddress = '0xb8CE9ab6943e0eCED004cDe8e3bBed6568B2Fa01' // additional account w/ funds
+const contractAddress = '0xdde11dad6a87e03818aea3fde7b790b644353ccc'
+const mineAddress = '0xF520Db140a8EB2032b11Bba47A65e6Ba04d9a35E' // 2nd account
 
 const sonar = new Sonar(contractAddress, mineAddress)
-console.log('reading accounts')
-sonar.web3.eth.getAccounts()
-  .then(a => console.log(a.slice(0, 10)))
 const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
 
 async function checkForModels () {
+  console.log('🔎️  Looking for models to train')
   const modelCount = await sonar.getNumModels()
-  console.log(`${modelCount} models found`)
+  console.log(`💃  ${modelCount} models found`)
 
   for (let modelId = 0; modelId < modelCount; modelId++) {
     const model = await sonar.getModel(modelId)
-    console.log(`model#${model.id} (${model.gradientCount}): ${model.weightsAddress}`)
+    console.log(`    #${model.id} at IPFS:${model.weightsAddress} with ${model.gradientCount} gradients`)
     if (model.gradientCount > Infinity) { // disable for now, should be > 0 to work ;)
       try {
         const gradients = await sonar.getModelGradients(modelId, model.gradientCount - 1)
-        console.log(` latest gradient#${gradients.id}: ${gradients.gradientsAddress} (weights: ${gradients.weightsAddress})`)
+        console.log(`latest gradient#${gradients.id}: ${gradients.gradientsAddress} (weights: ${gradients.weightsAddress})`)
       } catch (e) {
         console.error(` could not fetch gradients: ${e}`)
       }
@@ -47,6 +45,7 @@ async function checkForModels () {
       tmpPaths[e] = path.join(tmpDirectory.name, config.syft.tmpFiles[e])
     })
 
+    console.log(`  ⬇️  Downloading latest model`)
     // download the model from IPFS
     const modelFh = fs.createWriteStream(tmpPaths.model)
     await new Promise((resolve, reject) => {
@@ -58,10 +57,12 @@ async function checkForModels () {
     })
 
     // spawn syft
+    console.log(`  🏋️  Training the model latest model`)
     const childOpts = {
       shell: true,
       stdio: config.debug ? 'inherit' : ['ignore', 'ignore', process.stderr]
     }
+    const trainStart = new Date()
     const sp = spawn(`syft_cmd generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
     await new Promise((resolve, reject) => {
       sp.on('close', code => {
@@ -69,10 +70,10 @@ async function checkForModels () {
         resolve()
       })
     })
-    console.log('DONE TRAINING \\o/!')
+    console.log(`  🏋️  Finished training the model in ${(new Date() - trainStart) / 1000} s`)
 
     // put new gradients into IPFS
-    // deploy_trans = self.get_transaction(from_addr).addGradient(model_id,[ipfs_address[0:32],ipfs_address[32:]])
+    console.log(`  ⬆️  Uploading new gradients to IPFS`)
     const gradientFh = fs.createReadStream(tmpPaths.gradient)
     const gradientsAddress = await new Promise((resolve, reject) => {
       const files = [{
@@ -88,16 +89,9 @@ async function checkForModels () {
     })
     // upload new gradient address to sonar
     const response = await sonar.addGradient(modelId, gradientsAddress)
-    console.log(response)
+    console.log(`  ✅  Successfully propagated new gradient to Sonar with tx: ${response.transactionHash} for the price of ${response.gasUsed} gas`)
   }
   if (config.pollInterval > 0) setTimeout(checkForModels, config.pollInterval * 1000)
 }
 
 checkForModels()
-
-/*
-0x516d51316142636f727a6e53364a61524d735a7a4273524c756a57563846464b, 0x4b57707854596e48644266327270000000000000000000000000000000000000
-'QmQ1aBcorznS6JaRMsZzBsRLujWV8FFK', 'KWpxTYnHdBf2rp\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-
-'QmQ1aBcorznS6JaRMsZzBsRLujWV8FFKKWpxTYnHdBf2rp'
-*/
