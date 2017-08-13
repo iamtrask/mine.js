@@ -4,12 +4,12 @@
 
 <!-- TOC depthFrom:2 -->
 
-- [🏃‍ Usage](#🏃‍-usage)
-    - [📦 Installation](#📦-installation)
-    - [🏁 Start](#🏁-start)
-- [⚙️ (Missing) Features](#⚙️-missing-features)
-- [🐞 Known Issues](#🐞-known-issues)
-- [⚖️ License](#⚖️-license)
+- [🏃‍ Usage](#‍-usage)
+    - [📦 Installation](#-installation)
+    - [🏁 Start](#-start)
+- [⚙️ (Missing) Features](#️-missing-features)
+- [🐞 Known Issues](#-known-issues)
+- [⚖️ License](#-license)
 
 <!-- /TOC -->
 
@@ -59,7 +59,7 @@ You should see the following output:
 ## ⚙️ (Missing) Features
 
 Currently the `Mine` polls a fixed `contractAddress` for available models and lists statistics.
-Features that should follow: 
+Features that should follow:
 
 * [x] Poll `Sonar` for available models
 * [x] Download the model/weights via `IPFS`
