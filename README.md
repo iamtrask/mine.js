@@ -59,7 +59,7 @@ You should see the following output:
 ## ⚙️ (Missing) Features
 
 Currently the `Mine` polls a fixed `contractAddress` for available models and lists statistics.
-Features that should follow:
+Features that should follow: 
 
 * [x] Poll `Sonar` for available models
 * [x] Download the model/weights via `IPFS`
