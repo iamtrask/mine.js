@@ -1,8 +1,9 @@
 {
   "name": "mine.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "node.JS implementation of a Open Mined data mine",
   "main": "app.js",
+  "private": true,
   "bin": {
     "mine": "cli/mine.js"
   },
@@ -15,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenMined/Mine.js.git"
+    "url": "git+https://github.com/OpenMined/mine.js.git"
   },
   "engine": {
     "node": "^8.0.0",
@@ -28,11 +29,11 @@
     "data-mining"
   ],
   "author": "Andreas Offenhaeuser <http://anoff.io>",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/OpenMined/Mine.js/issues"
+    "url": "https://github.com/OpenMined/mine.js/issues"
   },
-  "homepage": "https://github.com/OpenMined/Mine.js#readme",
+  "homepage": "https://github.com/OpenMined/mine.js#readme",
   "devDependencies": {
     "ava": "^0.21.0",
     "nodemon": "^1.11.0",

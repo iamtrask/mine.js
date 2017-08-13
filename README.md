@@ -71,4 +71,4 @@ Features that should follow:
 
 ## ⚖️ License
 
-This code is licensed under [AGPL-3.0](LICENSE). If you have valid reason for us to consider going for a more permissive license please get in touch, we're not monsters 👾
+This code is licensed under [Apache-2.0](LICENSE). If you have valid reason for us to consider going for a more permissive license please get in touch, we're not monsters 👾
