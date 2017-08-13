@@ -1,7 +1,8 @@
 {
   "name": "mine.js",
-  "version": "0.1.0",
-  "description": "node.JS implementation of a Open Mined data mine",
+  "version": "0.0.1",
+  "description": "node.JS implementation of a OpenMined data mine",
+
   "main": "app.js",
   "private": true,
   "bin": {

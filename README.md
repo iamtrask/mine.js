@@ -1,6 +1,6 @@
 # mine.js 🗻⚒
 
-> nodeJS implementation of an [Open Mined](http://openmined.org) data mine
+> nodeJS implementation of an [OpenMined](http://openmined.org) data mine
 
 <!-- TOC depthFrom:2 -->
 
@@ -32,6 +32,8 @@ You need to start the following things before you can use your mine:
 * blockchain (testrpc for now)
 * ipfs daemon
 
+_Note: This seems to cause connection issues, as an alternative run the `start_env.sh` script if you have testrpc and ipfs installed locally_
+
 This repository comes with a [docker-compose file](setup/docker-compose.yml) that allows you to bootstrap _ethereum_, _ipfs_ and any other services via one command.
 
 ```sh
@@ -50,6 +52,10 @@ You might want to head over to [pySonar](https://github.com/OpenMined/PySonar/bl
 npm start
 ```
 
+You should see the following output:
+
+![mine logs](stdout_progress.png)
+
 ## ⚙️ (Missing) Features
 
 Currently the `Mine` polls a fixed `contractAddress` for available models and lists statistics.
@@ -67,7 +73,6 @@ Features that should follow:
 * the `npm install` requires a python executable `>= v2.5.0 & < 3.0.0` (child-dep of web3)
 * with dockerized IPFS/testrpc there are a lot of connection issues
     * first run on a new docker env is working ~90%
-* the `mineAddress` provided by `docker-compose` [does not provide enough funds](funding_issue.png) to submit new gradients
 
 ## ⚖️ License
 
