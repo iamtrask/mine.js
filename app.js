@@ -26,7 +26,7 @@ async function checkForModels () {
 
   for (let modelId = 0; modelId < modelCount; modelId++) {
     const model = await sonar.getModel(modelId)
-    console.log(`    #${model.id} at IPFS:${model.weightsAddress} with ${model.gradientCount} gradients`)
+    console.log(` 💃  model#${model.id} with ${model.gradientCount} gradients at IPFS:${model.weightsAddress}`)
     if (model.gradientCount > Infinity) { // disable for now, should be > 0 to work ;)
       try {
         const gradients = await sonar.getModelGradients(modelId, model.gradientCount - 1)
@@ -70,7 +70,7 @@ async function checkForModels () {
         resolve()
       })
     })
-    console.log(`  🏋️  Finished training the model in ${(new Date() - trainStart) / 1000} s`)
+    config.debug && console.log(`  🏋️  Finished training the model in ${(new Date() - trainStart) / 1000} s`)
 
     // put new gradients into IPFS
     console.log(`  ⬆️  Uploading new gradients to IPFS`)
@@ -89,7 +89,7 @@ async function checkForModels () {
     })
     // upload new gradient address to sonar
     const response = await sonar.addGradient(modelId, gradientsAddress)
-    console.log(`  ✅  Successfully propagated new gradient to Sonar with tx: ${response.transactionHash} for the price of ${response.gasUsed} gas`)
+    console.log(config.debug ? `  ✅  Successfully propagated new gradient to Sonar with tx: ${response.transactionHash} for the price of ${response.gasUsed} gas  at IPFS:${gradientsAddress}` : `  ✅  Successfully propagated new gradient to Sonar at IPFS:${gradientsAddress}`)
   }
   if (config.pollInterval > 0) setTimeout(checkForModels, config.pollInterval * 1000)
 }
