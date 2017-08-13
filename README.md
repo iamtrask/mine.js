@@ -4,12 +4,12 @@
 
 <!-- TOC depthFrom:2 -->
 
-- [🏃‍ Usage](#‍-usage)
+- [🏃‍ Usage](#-usage)
     - [📦 Installation](#-installation)
     - [🏁 Start](#-start)
 - [⚙️ (Missing) Features](#️-missing-features)
 - [🐞 Known Issues](#-known-issues)
-- [⚖️ License](#-license)
+- [⚖️ License](#️-license)
 
 <!-- /TOC -->
 
