@@ -11,12 +11,15 @@ const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
+const Web3 = require('web3')
+
+const web3 = new Web3(new Web3.providers.HttpProvider(Web3.givenProvider || 'http://localhost:8545'))
 
 // magic numbers that need to be parsed via CLI
 const contractAddress = '0xdde11dad6a87e03818aea3fde7b790b644353ccc'
 const mineAddress = '0xF520Db140a8EB2032b11Bba47A65e6Ba04d9a35E' // 2nd account
 
-const sonar = new Sonar(contractAddress, mineAddress)
+const sonar = new Sonar(web3, contractAddress, mineAddress)
 const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
 
 async function checkForModels () {
