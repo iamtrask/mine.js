@@ -1,15 +1,18 @@
 # mine.js 🗻⚒
 
+[![Tests develop](https://img.shields.io/travis/OpenMined/mine.js/develop.svg?style=flat-square)](https://travis-ci.org/OpenMined/mine.js)
+[![Coverage Status](https://img.shields.io/coveralls/OpenMined/mine.js/develop.svg?style=flat-square)](https://coveralls.io/github/OpenMined/mine.js?branch=develop)
+
 > nodeJS implementation of an [OpenMined](http://openmined.org) data mine
 
 <!-- TOC depthFrom:2 -->
 
-- [🏃‍ Usage](#-usage)
+- [🏃‍ Usage](#‍-usage)
     - [📦 Installation](#-installation)
     - [🏁 Start](#-start)
-- [⚙️ (Missing) Features](#️-missing-features)
+- [⚙️ (Missing) Features](#-missing-features)
 - [🐞 Known Issues](#-known-issues)
-- [⚖️ License](#️-license)
+- [⚖️ License](#-license)
 
 <!-- /TOC -->
 
