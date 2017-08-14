@@ -38,6 +38,7 @@
   "homepage": "https://github.com/OpenMined/mine.js#readme",
   "devDependencies": {
     "ava": "^0.21.0",
+    "codecov": "^2.3.0",
     "coveralls": "^2.13.1",
     "nodemon": "^1.11.0",
     "nyc": "^11.1.0",
@@ -61,5 +62,5 @@
       "lcov",
       "text"
     ]
-  }  
+  }
 }
