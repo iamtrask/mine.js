@@ -55,5 +55,11 @@
     "globals": [
       "config"
     ]
-  }
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  }  
 }
