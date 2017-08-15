@@ -7,7 +7,7 @@ const config = {
     port: 4001,
     host: 'localhost'
   },
-  pollInterval: 0, // [s] how often to check sonar for new models, 0 to disable
+  pollInterval: 30, // [s] how often to check sonar for new models, 0 to disable
   syft: {
     tmpFiles: {
       model: 'model.pickle',
