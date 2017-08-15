@@ -1,13 +1,16 @@
 {
   "name": "mine.js",
   "version": "0.0.1",
-  "description": "node.JS implementation of a Open Mined data mine",
+  "description": "node.JS implementation of a OpenMined data mine",
   "main": "app.js",
+  "private": true,
   "bin": {
     "mine": "cli/mine.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "standard && nyc ava",
+    "test:coverage": "nyc ava",
+    "test:watch": "ava --watch",
     "env-start": "docker-compose -f setup/docker-compose.yml up -d",
     "env-stop": "docker-compose -f setup/docker-compose.yml stop",
     "start": "nodemon app",
@@ -15,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenMined/Mine.js.git"
+    "url": "git+https://github.com/OpenMined/mine.js.git"
   },
   "engine": {
     "node": "^8.0.0",
@@ -28,23 +31,36 @@
     "data-mining"
   ],
   "author": "Andreas Offenhaeuser <http://anoff.io>",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/OpenMined/Mine.js/issues"
+    "url": "https://github.com/OpenMined/mine.js/issues"
   },
-  "homepage": "https://github.com/OpenMined/Mine.js#readme",
+  "homepage": "https://github.com/OpenMined/mine.js#readme",
   "devDependencies": {
     "ava": "^0.21.0",
+    "codecov": "^2.3.0",
+    "coveralls": "^2.13.1",
     "nodemon": "^1.11.0",
-    "standard": "^10.0.2"
+    "nyc": "^11.1.0",
+    "standard": "^10.0.2",
+    "testdouble": "^3.2.4"
   },
   "dependencies": {
     "commander": "^2.11.0",
     "ipfs-api": "^14.1.1",
     "node-schedule": "^1.2.3",
+    "tmp": "0.0.31",
     "web3": "^1.0.0-beta.14"
   },
   "standard": {
-    "globals": [ "config" ]
+    "globals": [
+      "config"
+    ]
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }

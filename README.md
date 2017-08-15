@@ -1,15 +1,19 @@
 # mine.js 🗻⚒
 
-> nodeJS implementation of an [Open Mined](http://openmined.org) data mine
+[![Tests develop](https://img.shields.io/travis/OpenMined/mine.js/develop.svg?style=flat-square)](https://travis-ci.org/OpenMined/mine.js)
+[![Coverage Status](https://img.shields.io/coveralls/OpenMined/mine.js/develop.svg?style=flat-square)](https://coveralls.io/github/OpenMined/mine.js?branch=develop)
+[![Codecov branch](https://img.shields.io/codecov/c/github/OpenMined/mine.js/develop.svg?style=flat-square)](https://codecov.io/gh/OpenMined/Mine.js)
+
+> nodeJS implementation of an [OpenMined](http://openmined.org) data mine
 
 <!-- TOC depthFrom:2 -->
 
-- [🏃‍ Usage](#🏃‍-usage)
-    - [📦 Installation](#📦-installation)
-    - [🏁 Start](#🏁-start)
-- [⚙️ (Missing) Features](#⚙️-missing-features)
-- [🐞 Known Issues](#🐞-known-issues)
-- [⚖️ License](#⚖️-license)
+- [🏃‍ Usage](#‍-usage)
+    - [📦 Installation](#-installation)
+    - [🏁 Start](#-start)
+- [⚙️ (Missing) Features](#-missing-features)
+- [🐞 Known Issues](#-known-issues)
+- [⚖️ License](#-license)
 
 <!-- /TOC -->
 
@@ -20,7 +24,10 @@
 The code was developed using node **v8.1.2** and it is recommend to stick around this version.
 
 ```sh
+# install this project
 npm install
+# in addition you need the syft python library installed
+pip install git+https://github.com/OpenMined/Syft.git
 ```
 
 ### 🏁 Start
@@ -28,6 +35,8 @@ npm install
 You need to start the following things before you can use your mine:
 * blockchain (testrpc for now)
 * ipfs daemon
+
+_Note: This seems to cause connection issues, as an alternative run the `start_env.sh` script if you have testrpc and ipfs installed locally_
 
 This repository comes with a [docker-compose file](setup/docker-compose.yml) that allows you to bootstrap _ethereum_, _ipfs_ and any other services via one command.
 
@@ -47,21 +56,28 @@ You might want to head over to [pySonar](https://github.com/OpenMined/PySonar/bl
 npm start
 ```
 
+You should see the following output:
+
+![mine logs](stdout_progress.png)
+
 ## ⚙️ (Missing) Features
 
 Currently the `Mine` polls a fixed `contractAddress` for available models and lists statistics.
 Features that should follow: 
 
 * [x] Poll `Sonar` for available models
-* [ ] Download the model/weights via `IPFS`
-* [ ] Train the model using `syft`
+* [x] Download the model/weights via `IPFS`
+* [x] Train the model using `syft`
 * [ ] Get `contractAddress`/`mineAddress` via arguments/env variables
 * [ ] Filter models for those matching available training data (requires feature change on Sonar contract)
+* [ ] Proper docker setup to allow multiple mines
 
 ## 🐞 Known Issues
 
 * the `npm install` requires a python executable `>= v2.5.0 & < 3.0.0` (child-dep of web3)
+* with dockerized IPFS/testrpc there are a lot of connection issues
+    * first run on a new docker env is working ~90%
 
 ## ⚖️ License
 
-This code is licensed under [AGPL-3.0](LICENSE). If you have valid reason for us to consider going for a more permissive license please get in touch, we're not monsters 👾
+This code is licensed under [Apache-2.0](LICENSE). If you have valid reason for us to consider going for a more permissive license please get in touch, we're not monsters 👾
