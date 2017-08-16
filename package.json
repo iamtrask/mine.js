@@ -30,6 +30,9 @@
     "blockchain",
     "data-mining"
   ],
+  "bin": {
+    "mine": "cli.js"
+  },
   "author": "Andreas Offenhaeuser <http://anoff.io>",
   "license": "Apache-2.0",
   "bugs": {
