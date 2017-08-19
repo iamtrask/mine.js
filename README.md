@@ -10,6 +10,7 @@
 - [🏃‍ Usage](#‍-usage)
     - [📦 Installation](#-installation)
     - [🏁 Start](#-start)
+    - [🌙 CLI](#-command-line-interface)
 - [⚙️ (Missing) Features](#-missing-features)
 - [🐞 Known Issues](#-known-issues)
 - [⚖️ License](#-license)
@@ -59,15 +60,33 @@ You should see the following output:
 
 ![mine logs](stdout_progress.png)
 
+### 🌙 Command Line Interface
+
+To list available commands, execute `node bin/cli.js --help`:
+```
+Usage: cli [options]
+
+
+  Options:
+
+    -V, --version                     output the version number
+    -m, --mine-address <address>      Blockchain address for the mine to use
+    -c, --contract-address <address>  Sonar smart contract address for the mine to use
+    -i, --ipfs-url [url]              Url of the IPFS node (Default: "{host: 'localhost', port: '5001', protocol: 'http'})")
+    -e, --ethereum-url [url]          Url to the ethereum network to use (Default: "http://localhost:8545")
+    -h, --help                        output usage information
+```
+
+
 ## ⚙️ (Missing) Features
 
 Currently the `Mine` polls a fixed `contractAddress` for available models and lists statistics.
-Features that should follow: 
+Features that should follow:
 
 * [x] Poll `Sonar` for available models
 * [x] Download the model/weights via `IPFS`
 * [x] Train the model using `syft`
-* [ ] Get `contractAddress`/`mineAddress` via arguments/env variables
+* [x] Get `contractAddress`/`mineAddress` via arguments/env variables
 * [ ] Filter models for those matching available training data (requires feature change on Sonar contract)
 * [ ] Proper docker setup to allow multiple mines
 
