@@ -16,8 +16,8 @@ const Web3 = require('web3')
 const web3 = new Web3(new Web3.providers.HttpProvider(Web3.givenProvider || 'http://localhost:8545'))
 
 // magic numbers that need to be parsed via CLI
-const contractAddress = '0xdde11dad6a87e03818aea3fde7b790b644353ccc'
-const mineAddress = '0xF520Db140a8EB2032b11Bba47A65e6Ba04d9a35E' // 2nd account
+const contractAddress = '0xf30068fb49616db7d5afb89862d6b40d11389327'
+const mineAddress = '0xc9392bce7589dc7b74bde11f16f26bcddac1fa8e' // 2nd account
 
 const sonar = new Sonar(web3, contractAddress, mineAddress)
 const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
