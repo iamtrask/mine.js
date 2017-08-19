@@ -10,6 +10,7 @@
 - [🏃‍ Usage](#‍-usage)
     - [📦 Installation](#-installation)
     - [🏁 Start](#-start)
+    - [🌙 CLI](#-command-line-interface)
 - [⚙️ (Missing) Features](#-missing-features)
 - [🐞 Known Issues](#-known-issues)
 - [⚖️ License](#-license)
@@ -47,7 +48,16 @@ npm run env-start
 npm run env-stop
 ```
 
-After you have the surrounding services mocked you can star the `Mine` using `npm start` which will put the application into a developer mode with [nodemon](https://github.com/remy/nodemon) acting as as serversided live-reload.
+After you have the surrounding services mocked you can start the `Mine`:
+```
+ npm start -- --mine-address <your mine address> --contract-address <a sonar smart contract address>
+```
+
+or put the application into a developer mode with [nodemon](https://github.com/remy/nodemon) acting as as serversided live-reload
+```
+npm dev -- --mine-address <your mine address> --contract-address <a sonar smart contract address>
+
+```
 
 You might want to head over to [pySonar](https://github.com/OpenMined/PySonar/blob/master/notebooks/Sonar%20-%20Decentralized%20Model%20Training%20Simulation%20(local%20blockchain).ipynb) and execute the notebook until **Step 1** to bootstrap your blockchain with some models. Feel free to execute additional steps to mock partially trained models.
 
@@ -59,15 +69,34 @@ You should see the following output:
 
 ![mine logs](stdout_progress.png)
 
+### 🌙 Command Line Interface
+
+To list available commands, execute `npm start -- --help`:
+```
+Usage: train [options]
+
+Train your mine locally using a sonar smart contract
+
+
+Options:
+
+  -m, --mine-address <hexstring>      Blockchain address for the mine to use
+  -c, --contract-address <hexstring>  Sonar smart contract address for the mine to use
+  -i, --ipfs-url [url]                Url of the IPFS node (Default: "http://localhost:5001")
+  -e, --ethereum-url [url]            Url to the ethereum network to use (Default: "http://localhost:8545")
+  -h, --help                          output usage information
+
+```
+
 ## ⚙️ (Missing) Features
 
 Currently the `Mine` polls a fixed `contractAddress` for available models and lists statistics.
-Features that should follow: 
+Features that should follow:
 
 * [x] Poll `Sonar` for available models
 * [x] Download the model/weights via `IPFS`
 * [x] Train the model using `syft`
-* [ ] Get `contractAddress`/`mineAddress` via arguments/env variables
+* [x] Get `contractAddress`/`mineAddress` via arguments/env variables
 * [ ] Filter models for those matching available training data (requires feature change on Sonar contract)
 * [ ] Proper docker setup to allow multiple mines
 

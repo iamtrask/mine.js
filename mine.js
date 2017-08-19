@@ -13,17 +13,13 @@ const fs = require('fs')
 const spawn = require('child_process').spawn
 const Web3 = require('web3')
 
-const web3 = new Web3(new Web3.providers.HttpProvider(Web3.givenProvider || 'http://localhost:8545'))
+async function checkForModels (mineAddress, contractAddress, ethereumUrl, ipfsUrl) {
+  const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
+  const ipfs = ipfsAPI(ipfsUrl)
 
-// magic numbers that need to be parsed via CLI
-const contractAddress = '0xf30068fb49616db7d5afb89862d6b40d11389327'
-const mineAddress = '0xc9392bce7589dc7b74bde11f16f26bcddac1fa8e' // 2nd account
+  const sonar = new Sonar(web3, contractAddress, mineAddress)
 
-const sonar = new Sonar(web3, contractAddress, mineAddress)
-const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
-
-async function checkForModels () {
-  console.log('🔎️  Looking for models to train')
+  console.log(`🔎️  Looking for models to train at ${contractAddress} for mine ${mineAddress}`)
   const modelCount = await sonar.getNumModels()
   console.log(`💃  ${modelCount} models found`)
 
@@ -97,4 +93,6 @@ async function checkForModels () {
   if (config.pollInterval > 0) setTimeout(checkForModels, config.pollInterval * 1000)
 }
 
-checkForModels()
+module.exports = {
+  checkForModels
+}
