@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander')
-const app = require('../lib/mine.js')
+const app = require('../mine.js')
 const pckg = require('../package.json')
 
 program

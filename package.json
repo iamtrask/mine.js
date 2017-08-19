@@ -2,7 +2,7 @@
   "name": "mine.js",
   "version": "0.0.2",
   "description": "node.JS implementation of a OpenMined data mine",
-  "main": "lib/mines.js",
+  "main": "mine.js",
   "private": true,
   "bin": {
     "mine": "bin/cli.js"
