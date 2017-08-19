@@ -21,4 +21,5 @@ node_modules/
 .env
 
 # data directory for ipfs/mine data
-/data/*
+/data/ipfs/
+/data/testrpc_persist
