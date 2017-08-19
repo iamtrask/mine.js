@@ -10,6 +10,9 @@ services:
      - ../data/ipfs/data:/data/ipfs
      - ../data/ipfs/staging:/export
   testrpc:
-    image: "openmined/sonar-testrpc:edge"
+    build:
+      context: ../../Sonar
+      dockerfile: Dockerfile.testrpc
+    # image: "openmined/sonar-testrpc:edge"
     ports:
       - "8545:8545"
