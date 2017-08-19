@@ -62,7 +62,7 @@ async function checkForModels (mineAddress, contractAddress, ethereumUrl, ipfsUr
       stdio: config.debug ? 'inherit' : ['ignore', 'ignore', process.stderr]
     }
     const trainStart = new Date()
-    const sp = spawn(`syft_cmd generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/adapters/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
+    const sp = spawn(`syft_cmd generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/adapters/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/adapters/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
     await new Promise((resolve, reject) => {
       sp.on('close', code => {
         if (code) reject(new Error(`error while calling syft, code=${code}`))
