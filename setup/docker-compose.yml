@@ -10,9 +10,6 @@ services:
      - ../data/ipfs/data:/data/ipfs
      - ../data/ipfs/staging:/export
   testrpc:
-    image: "harshjv/testrpc:latest"
+    image: "openmined/sonar-testrpc:edge"
     ports:
       - "8545:8545"
-    volumes:
-    - ../data/testrpc_persist:/data/persist
-    command: --db /data/persist --seed 20170811 --gasPrice 0 --debug --account="0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709,180000000000000000000"
