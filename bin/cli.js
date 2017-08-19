@@ -6,6 +6,11 @@ const pckg = require('../package.json')
 program
   .version(pckg.version)
   .usage('[options]')
+  // HACK: Commander only registers `-V`
+  .option('-v, --version', 'output the version number')
+  .on('option:version', () => {
+    return console.log(program._version)
+  })
   .action(() => {
     program.help()
   })
