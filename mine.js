@@ -4,8 +4,8 @@
  */
 
 // const schedule = require('node-schedule')
-global.config = require('../config')
-const Sonar = require('./sonar')
+global.config = require('./config')
+const Sonar = require('./lib/sonar')
 const ipfsAPI = require('ipfs-api')
 const tmp = require('tmp')
 const path = require('path')
