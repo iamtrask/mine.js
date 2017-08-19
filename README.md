@@ -1,7 +1,6 @@
 # mine.js 🗻⚒
 
 [![Tests develop](https://img.shields.io/travis/OpenMined/mine.js/develop.svg?style=flat-square)](https://travis-ci.org/OpenMined/mine.js)
-[![Coverage Status](https://img.shields.io/coveralls/OpenMined/mine.js/develop.svg?style=flat-square)](https://coveralls.io/github/OpenMined/mine.js?branch=develop)
 [![Codecov branch](https://img.shields.io/codecov/c/github/OpenMined/mine.js/develop.svg?style=flat-square)](https://codecov.io/gh/OpenMined/Mine.js)
 
 > nodeJS implementation of an [OpenMined](http://openmined.org) data mine
