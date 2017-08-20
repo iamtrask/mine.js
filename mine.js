@@ -11,10 +11,8 @@ const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
-const Web3 = require('web3')
 
-async function checkForModels (mineAddress, contractAddress, ethereumUrl, ipfsUrl) {
-  const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
+async function checkForModels (mineAddress, contractAddress, web3, ipfsUrl) {
   const ipfs = ipfsAPI(ipfsUrl)
 
   const sonar = new Sonar(web3, contractAddress, mineAddress)

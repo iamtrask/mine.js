@@ -80,9 +80,9 @@ Train your mine locally using a sonar smart contract
 
 Options:
 
-  -m, --mine-address <hexstring>      Blockchain address for the mine to use
+  -m, --mine-address <hexstring or auto>      Blockchain address for the mine to use. `auto`` sets the mine to pick a random account.
   -c, --contract-address <hexstring>  Sonar smart contract address for the mine to use
-  -i, --ipfs-url [url]                Url of the IPFS node (Default: "http://localhost:5001")
+  -i, --ipfs-url [url]                Url of the IPFS node (Default: "/ip4/127.0.0.1/tcp/5001")
   -e, --ethereum-url [url]            Url to the ethereum network to use (Default: "http://localhost:8545")
   -h, --help                          output usage information
 

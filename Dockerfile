@@ -15,4 +15,4 @@ COPY . /app
 # Create app directory
 WORKDIR /app
 
-CMD [ "node", "app" ]
+CMD [ "node", "bin/cli", "train", "--mine-address", "auto", "--contract-address", "0xdde11dad6a87e03818aea3fde7b790b644353ccc" ]
