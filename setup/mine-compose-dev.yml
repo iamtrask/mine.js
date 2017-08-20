@@ -1,0 +1,21 @@
+version: '3'
+services:
+  ipfs:
+    image: ipfs/go-ipfs:latest
+    volumes:
+     - ../data/ipfs/data:/data/ipfs
+     - ../data/ipfs/staging:/export
+    networks: [mine-dev]
+  testrpc:
+    image: openmined/sonar-testrpc:edge
+    networks: [mine-dev]
+  mine:
+    image: openmined/mine.js:edge
+    volumes:
+      - ../lib:/app/lib
+      - ../bin:/app/bin
+      - ../data:/app/data
+      - ../mine.js:/app/mine.js
+    entrypoint: ./node_modules/.bin/nodemon bin/cli.js train --mine-address 0xE8cd631a35daEA6c76cF9a8c04C1a326fE69f9A9 --contract-address 0xdde11dad6a87e03818aea3fde7b790b644353ccc
+networks:
+  mine-dev:
