@@ -90,7 +90,7 @@ async function checkForModels (mineAddress, contractAddress, ethereumUrl, ipfsUr
     const response = await sonar.addGradient(modelId, gradientsAddress)
     console.log(config.debug ? `  ✅  Successfully propagated new gradient to Sonar with tx: ${response.transactionHash} for the price of ${response.gasUsed} gas  at IPFS:${gradientsAddress}` : `  ✅  Successfully propagated new gradient to Sonar at IPFS:${gradientsAddress}`)
   }
-  if (config.pollInterval > 0) setTimeout(checkForModels, config.pollInterval * 1000)
+  if (config.pollInterval > 0) setTimeout(() => checkForModels(mineAddress, contractAddress, ethereumUrl, ipfsUrl), config.pollInterval * 1000)
 }
 
 module.exports = {
