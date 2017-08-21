@@ -12,8 +12,7 @@ services:
     image: openmined/sonar-testrpc:edge
     networks: [mine-dev]
   mine:
-    #image: openmined/mine.js:edge
-    image: mine
+    image: openmined/mine.js:edge
     volumes:
     - ../lib:/app/lib
     - ../bin:/app/bin
@@ -24,7 +23,7 @@ services:
     networks: [mine-dev]
     depends_on: [testrpc]
   notebook:
-    image: notebook
+    image: openmined/pysyft-notebook:edge
     networks: [mine-dev]
     ports: ["8888:8888"]
 networks:
