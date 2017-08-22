@@ -3,6 +3,7 @@ const program = require('commander')
 const app = require('../mine.js')
 const pckg = require('../package.json')
 const Web3 = require('web3')
+const ipfsAPI = require('ipfs-api')
 
 program
   .version(pckg.version)
@@ -29,8 +30,8 @@ program
     const contractAddress = options.contractAddress
 
     // HACK: Commander required only works with empty arguments
-    if (!mineAddress) return console.log('--mine-address required')
-    if (!contractAddress) return console.log('--contract-address required')
+    if (!mineAddress) return console.error('--mine-address required')
+    if (!contractAddress) return console.error('--contract-address required')
     const ethereumUrl = options.ethereumUrl || 'http://localhost:8545'
 
     const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
@@ -41,7 +42,9 @@ program
     }
 
     const ipfsUrl = options.ipfsUrl || '/ip4/127.0.0.1/tcp/5001'
-    app.checkForModels(mineAddress, contractAddress, web3, ipfsUrl)
+    const ipfs = ipfsAPI(ipfsUrl)
+
+    app.checkForModels(mineAddress, contractAddress, web3, ipfs)
   })
 
 program.parse(process.argv)

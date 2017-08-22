@@ -72,21 +72,6 @@ You should see the following output:
 ### 🌙 Command Line Interface
 
 To list available commands, execute `npm start -- --help`:
-```
-Usage: train [options]
-
-Train your mine locally using a sonar smart contract
-
-
-Options:
-
-  -m, --mine-address <hexstring or auto>      Blockchain address for the mine to use. `auto`` sets the mine to pick a random account.
-  -c, --contract-address <hexstring>  Sonar smart contract address for the mine to use
-  -i, --ipfs-url [url]                Url of the IPFS node (Default: "/ip4/127.0.0.1/tcp/5001")
-  -e, --ethereum-url [url]            Url to the ethereum network to use (Default: "http://localhost:8545")
-  -h, --help                          output usage information
-
-```
 
 ## ⚙️ (Missing) Features
 

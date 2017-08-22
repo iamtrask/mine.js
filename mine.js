@@ -6,15 +6,12 @@
 // const schedule = require('node-schedule')
 global.config = require('./config')
 const Sonar = require('./lib/sonar')
-const ipfsAPI = require('ipfs-api')
 const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
 
-async function checkForModels (mineAddress, contractAddress, web3, ipfsUrl) {
-  const ipfs = ipfsAPI(ipfsUrl)
-
+async function checkForModels (mineAddress, contractAddress, web3, ipfs) {
   const sonar = new Sonar(web3, contractAddress, mineAddress)
 
   console.log(`🔎️  Looking for models to train at ${contractAddress} for mine ${mineAddress}`)
