@@ -10,7 +10,7 @@
 - [🏃‍ Usage](#‍-usage)
     - [📦 Installation](#-installation)
     - [🏁 Start](#-start)
-    - [🌙 CLI](#-command-line-interface)
+    - [🌙 Command Line Interface](#-command-line-interface)
 - [⚙️ (Missing) Features](#-missing-features)
 - [🐞 Known Issues](#-known-issues)
 - [⚖️ License](#-license)
@@ -38,25 +38,20 @@ You need to start the following things before you can use your mine:
 
 _Note: This seems to cause connection issues, as an alternative run the `start_env.sh` script if you have testrpc and ipfs installed locally_
 
-This repository comes with a [docker-compose file](setup/docker-compose.yml) that allows you to bootstrap _ethereum_, _ipfs_ and any other services via one command.
+This repository comes with a [docker-compose file](setup/docker-compose.yml) that allows you to bootstrap _ethereum_, _ipfs_ and any other services via one command. This will also start an instance of the latest `openmined/mine.js:edge` docker container with all local files mounted into it.
+This allows development on the code with an auto-reloading docker environment.
+
+_It will not work if you install new dependencies as those are not hot-loaded_
 
 ```sh
 # to start the development environment
-npm run env-start
-
-# or to stop
-npm run env-stop
+npm run dev
 ```
 
-After you have the surrounding services mocked you can start the `Mine`:
+Alternatively you can only run the Mine (assuming you have testrpc and ipfs running somewhere):
+
 ```
  npm start -- --mine-address <your mine address> --contract-address <a sonar smart contract address>
-```
-
-or put the application into a developer mode with [nodemon](https://github.com/remy/nodemon) acting as as serversided live-reload
-```
-npm dev -- --mine-address <your mine address> --contract-address <a sonar smart contract address>
-
 ```
 
 You might want to head over to [pySonar](https://github.com/OpenMined/PySonar/blob/master/notebooks/Sonar%20-%20Decentralized%20Model%20Training%20Simulation%20(local%20blockchain).ipynb) and execute the notebook until **Step 1** to bootstrap your blockchain with some models. Feel free to execute additional steps to mock partially trained models.
