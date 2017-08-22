@@ -12,6 +12,7 @@
     "test:coverage": "nyc ava",
     "test:watch": "ava --watch",
     "dev": "docker-compose -f setup/docker-compose.yml up",
+    "dev-pull": "docker-compose -f setup/docker-compose.yml pull",
     "start": "node ./bin/cli.js train",
     "lint": "standard"
   },
