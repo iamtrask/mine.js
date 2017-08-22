@@ -12,4 +12,4 @@ WORKDIR /app
 
 RUN npm install
 
-CMD [ "node", "bin/cli", "train", "--mine-address", "0xE8cd631a35daEA6c76cF9a8c04C1a326fE69f9A9", "--contract-address", "0xdde11dad6a87e03818aea3fde7b790b644353ccc" ]
+CMD [ "node", "bin/cli", "train", "--mine-address", "auto", "--contract-address", "0xdde11dad6a87e03818aea3fde7b790b644353ccc" ]

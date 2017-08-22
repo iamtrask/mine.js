@@ -6,17 +6,12 @@
 // const schedule = require('node-schedule')
 global.config = require('./config')
 const Sonar = require('./lib/sonar')
-const ipfsAPI = require('ipfs-api')
 const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
-const Web3 = require('web3')
 
-async function checkForModels (mineAddress, contractAddress, ethereumUrl, ipfsUrl) {
-  const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
-  const ipfs = ipfsAPI(ipfsUrl)
-
+async function checkForModels (mineAddress, contractAddress, web3, ipfs) {
   const sonar = new Sonar(web3, contractAddress, mineAddress)
 
   console.log(`🔎️  Looking for models to train at ${contractAddress} for mine ${mineAddress}`)
@@ -90,7 +85,7 @@ async function checkForModels (mineAddress, contractAddress, ethereumUrl, ipfsUr
     const response = await sonar.addGradient(modelId, gradientsAddress)
     console.log(config.debug ? `  ✅  Successfully propagated new gradient to Sonar with tx: ${response.transactionHash} for the price of ${response.gasUsed} gas  at IPFS:${gradientsAddress}` : `  ✅  Successfully propagated new gradient to Sonar at IPFS:${gradientsAddress}`)
   }
-  if (config.pollInterval > 0) setTimeout(() => checkForModels(mineAddress, contractAddress, ethereumUrl, ipfsUrl), config.pollInterval * 1000)
+  if (config.pollInterval > 0) setTimeout(() => checkForModels(mineAddress, contractAddress, web3, ipfs), config.pollInterval * 1000)
 }
 
 module.exports = {
