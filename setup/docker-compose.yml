@@ -2,28 +2,17 @@ version: '3'
 services:
   ipfs:
     image: ipfs/go-ipfs:latest
-    volumes:
-     - ../data/ipfs/data:/data/ipfs
-     - ../data/ipfs/staging:/export
     networks: [mine-dev]
   testrpc:
-    volumes:
-      - ../data/testrpc_persist:/data/testrpc_persist
     image: openmined/sonar-testrpc:edge
     networks: [mine-dev]
   mine:
-    image: openmined/mine.js:edge
-    volumes:
-    - ../lib:/app/lib
-    - ../bin:/app/bin
-    - ../data:/app/data
-    - ../mine.js:/app/mine.js
-    - ../config.js:/app/config.js
-    entrypoint: "./node_modules/.bin/nodemon bin/cli.js train --mine-address 0xE8cd631a35daEA6c76cF9a8c04C1a326fE69f9A9 --contract-address 0xdde11dad6a87e03818aea3fde7b790b644353ccc --ethereum-url http://testrpc:8545"
+    image: anoff/test:mine
+    entrypoint: "./node_modules/.bin/nodemon bin/cli.js train --mine-address auto --contract-address 0x249c008fc4f9c01248f557985f5b5b1aed8eb98f --ethereum-url http://testrpc:8545 --ipfs-url /ip4/ipfs/tcp/5001"
     networks: [mine-dev]
-    depends_on: [testrpc]
+    depends_on: ["testrpc", "ipfs"]
   notebook:
-    image: openmined/pysyft-notebook:edge
+    image: pysonar-notebook
     networks: [mine-dev]
     ports: ["8888:8888"]
 networks:
