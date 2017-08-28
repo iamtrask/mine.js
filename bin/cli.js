@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const url = require('url')
 const program = require('commander')
 const app = require('../mine.js')
 const pckg = require('../package.json')
@@ -22,7 +23,7 @@ program
   .description('Train your mine locally using a sonar smart contract')
   .option('-m, --mine-address <hexstring or auto>', 'Blockchain address for the mine to use. `auto`` sets the mine to pick a random account.')
   .option('-c, --contract-address <hexstring>', 'Sonar smart contract address for the mine to use')
-  .option('-i, --ipfs-url [url]', 'Url of the IPFS node (Default: "/ip4/127.0.0.1/tcp/5001")')
+  .option('-i, --ipfs-url [url]', 'Url of the IPFS node (Default: "http://localhost:5001")')
   .option('-e, --ethereum-url [url]', 'Url to the ethereum network to use (Default: "http://localhost:8545")')
   // TODO: Add dev mode with watching
   .action(async (options) => {
@@ -41,8 +42,11 @@ program
       mineAddress = mineAddresses.length && mineAddresses[0]
     }
 
-    const ipfsUrl = options.ipfsUrl || '/ip4/127.0.0.1/tcp/5001'
-    const ipfs = ipfsAPI(ipfsUrl)
+    const ipfsUrl = options.ipfsUrl || 'http://localhost:5001'
+    // conver to object format as expected by ipfs-api
+    const ipfsUrlOpts = url.parse(ipfsUrl)
+    ipfsUrlOpts.host = ipfsUrlOpts.hostname // use only hostname w/o port
+    const ipfs = ipfsAPI(ipfsUrlOpts)
 
     app.checkForModels(mineAddress, contractAddress, web3, ipfs)
   })
