@@ -1,18 +1,30 @@
-version: '2'
+version: '3'
 services:
   ipfs:
-    image: "ipfs/go-ipfs:latest"
-    ports:
-     - "8080:8080"
-     - "4001:4001"
-     - "5001:5001"
+    image: ipfs/go-ipfs:latest
     volumes:
      - ../data/ipfs/data:/data/ipfs
      - ../data/ipfs/staging:/export
+    networks: [mine-dev]
   testrpc:
-    image: "harshjv/testrpc:latest"
-    ports:
-      - "8545:8545"
     volumes:
-    - ../data/testrpc_persist:/data/persist
-    command: --db /data/persist --seed 20170811 --gasPrice 0 --debug --account="0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709,180000000000000000000"
+      - ../data/testrpc_persist:/data/testrpc_persist
+    image: openmined/sonar-testrpc:edge
+    networks: [mine-dev]
+  mine:
+    image: openmined/mine.js:edge
+    volumes:
+    - ../lib:/app/lib
+    - ../bin:/app/bin
+    - ../data:/app/data
+    - ../mine.js:/app/mine.js
+    - ../config.js:/app/config.js
+    entrypoint: "./node_modules/.bin/nodemon bin/cli.js train --mine-address 0xE8cd631a35daEA6c76cF9a8c04C1a326fE69f9A9 --contract-address 0xdde11dad6a87e03818aea3fde7b790b644353ccc --ethereum-url http://testrpc:8545"
+    networks: [mine-dev]
+    depends_on: [testrpc]
+  notebook:
+    image: openmined/pysyft-notebook:edge
+    networks: [mine-dev]
+    ports: ["8888:8888"]
+networks:
+  mine-dev:

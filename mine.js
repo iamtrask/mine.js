@@ -6,24 +6,15 @@
 // const schedule = require('node-schedule')
 global.config = require('./config')
 const Sonar = require('./lib/sonar')
-const ipfsAPI = require('ipfs-api')
 const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
-const Web3 = require('web3')
 
-const web3 = new Web3(new Web3.providers.HttpProvider(Web3.givenProvider || 'http://localhost:8545'))
+async function checkForModels (mineAddress, contractAddress, web3, ipfs) {
+  const sonar = new Sonar(web3, contractAddress, mineAddress)
 
-// magic numbers that need to be parsed via CLI
-const contractAddress = '0xdde11dad6a87e03818aea3fde7b790b644353ccc'
-const mineAddress = '0xF520Db140a8EB2032b11Bba47A65e6Ba04d9a35E' // 2nd account
-
-const sonar = new Sonar(web3, contractAddress, mineAddress)
-const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
-
-async function checkForModels () {
-  console.log('🔎️  Looking for models to train')
+  console.log(`🔎️  Looking for models to train at ${contractAddress} for mine ${mineAddress}`)
   const modelCount = await sonar.getNumModels()
   console.log(`💃  ${modelCount} models found`)
 
@@ -66,7 +57,7 @@ async function checkForModels () {
       stdio: config.debug ? 'inherit' : ['ignore', 'ignore', process.stderr]
     }
     const trainStart = new Date()
-    const sp = spawn(`syft_cmd generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/mine/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
+    const sp = spawn(`syft_cmd generate_gradient`, [`-model ${tmpPaths.model}`, `-input_data ${path.join(__dirname, 'data/adapters/diabetes/diabetes_input.csv')}`, `-target_data ${path.join(__dirname, 'data/adapters/diabetes/diabetes_output.csv')}`, `-gradient ${tmpPaths.gradient}`], childOpts)
     await new Promise((resolve, reject) => {
       sp.on('close', code => {
         if (code) reject(new Error(`error while calling syft, code=${code}`))
@@ -94,7 +85,9 @@ async function checkForModels () {
     const response = await sonar.addGradient(modelId, gradientsAddress)
     console.log(config.debug ? `  ✅  Successfully propagated new gradient to Sonar with tx: ${response.transactionHash} for the price of ${response.gasUsed} gas  at IPFS:${gradientsAddress}` : `  ✅  Successfully propagated new gradient to Sonar at IPFS:${gradientsAddress}`)
   }
-  if (config.pollInterval > 0) setTimeout(checkForModels, config.pollInterval * 1000)
+  if (config.pollInterval > 0) setTimeout(() => checkForModels(mineAddress, contractAddress, web3, ipfs), config.pollInterval * 1000)
 }
 
-checkForModels()
+module.exports = {
+  checkForModels
+}
