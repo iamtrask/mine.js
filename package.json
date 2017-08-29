@@ -8,8 +8,8 @@
     "mine": "bin/cli.js"
   },
   "scripts": {
-    "test": "standard && nyc ava",
-    "test:coverage": "nyc ava",
+    "test": "standard && nyc --all ava",
+    "test:coverage": "nyc --all ava",
     "test:watch": "ava --watch",
     "dev": "docker-compose -f setup/docker-compose.yml up",
     "start": "node ./bin/cli.js train",
