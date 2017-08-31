@@ -3,9 +3,11 @@ services:
   ipfs:
     image: ipfs/go-ipfs:latest
     networks: [mine-dev]
+    ports: ["5001:5001"]
   testrpc:
     image: openmined/sonar-testrpc:edge
     networks: [mine-dev]
+    ports: ["8545:8545"]
   mine:
     image: openmined/mine.js:edge
     volumes:
@@ -17,9 +19,9 @@ services:
     entrypoint: "./node_modules/.bin/nodemon bin/cli.js train --mine-address 0xE8cd631a35daEA6c76cF9a8c04C1a326fE69f9A9 --contract-address 0xdde11dad6a87e03818aea3fde7b790b644353ccc --ethereum-url http://testrpc:8545 --ipfs-url http://ipfs:5001"
     networks: [mine-dev]
     depends_on: [testrpc]
-  notebook:
-    image: openmined/pysonar-notebook:edge
-    networks: [mine-dev]
-    ports: ["8888:8888"]
+#  notebook:
+#    image: openmined/pysonar-notebook:edge
+#    networks: [mine-dev]
+#    ports: ["8888:8888"]
 networks:
   mine-dev:
