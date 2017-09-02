@@ -12,7 +12,7 @@ services:
     networks: [mine-dev]
     depends_on: [testrpc]
   notebook:
-    image: sonar-notebook
+    image: pysonar-notebook
     networks: [mine-dev]
     ports: ["8888:8888"]
 networks:

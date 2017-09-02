@@ -44,7 +44,7 @@
     "testdouble": "^3.2.4"
   },
   "dependencies": {
-    "@openmined/sonar": "git+https://git@github.com/OpenMined/Sonar.git#08ca9db",
+    "@openmined/sonar": "git+https://git@github.com/OpenMined/Sonar.git#42023d71f64b2ed30fa68b46575c02105b34ef9c",
     "commander": "^2.11.0",
     "ipfs-api": "^14.1.1",
     "node-schedule": "^1.2.3",
