@@ -3,17 +3,28 @@ services:
   ipfs:
     image: ipfs/go-ipfs:latest
     networks: [mine-dev]
+    ports: ["5001:5001"]
   testrpc:
     image: openmined/sonar-testrpc:edge
     networks: [mine-dev]
+    ports: ["8545:8545"]
   mine:
     image: mine
+    volumes:
+    - ../lib:/app/lib
+    - ../bin:/app/bin
+    - ../data:/app/data
+    - ../mine.js:/app/mine.js
+    - ../config.js:/app/config.js
+    - ../package.json:/app/package.json
+    - ../package-lock.json:/app/package-lock.json
+    - ./container_node_modules:/app/node_modules
     command: /bin/sh -c "npm install && ./node_modules/.bin/nodemon bin/cli.js train --mine-address auto --contract-address 0x249c008fc4f9c01248f557985f5b5b1aed8eb98f --ethereum-url http://testrpc:8545 --ipfs-url http://ipfs:5001"
     networks: [mine-dev]
     depends_on: [testrpc]
-  notebook:
-    image: sonar-notebook
-    networks: [mine-dev]
-    ports: ["8888:8888"]
+#  notebook:
+#    image: openmined/pysonar-notebook:edge
+#    networks: [mine-dev]
+#    ports: ["8888:8888"]
 networks:
   mine-dev:
