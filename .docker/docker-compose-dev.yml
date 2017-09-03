@@ -22,9 +22,9 @@ services:
     command: /bin/sh -c "npm install && ./node_modules/.bin/nodemon bin/cli.js train --mine-address auto --contract-address 0x249c008fc4f9c01248f557985f5b5b1aed8eb98f --ethereum-url http://testrpc:8545 --ipfs-url http://ipfs:5001"
     networks: [mine-dev]
     depends_on: [testrpc]
-#  notebook:
-#    image: openmined/pysonar-notebook:edge
-#    networks: [mine-dev]
-#    ports: ["8888:8888"]
+  notebook:
+    image: openmined/pysonar-notebook:edge
+    networks: [mine-dev]
+    ports: ["8888:8888"]
 networks:
   mine-dev:

@@ -1,4 +1,4 @@
-FROM openmined/pysyft:edge AS pysyft
+FROM openmined/pysyft:hydrogen AS pysyft
 FROM node:8-alpine
 
 # Install git & stuff (req for npm install)
