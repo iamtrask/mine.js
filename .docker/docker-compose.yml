@@ -6,9 +6,10 @@ services:
   testrpc:
     image: openmined/sonar-testrpc:hydrogen
     networks: [mine-dev]
+    command: ./node_modules/.bin/testrpc --host 0.0.0.0 --db "/data/testrpc_persist" --seed "20170812" --accounts 42
   mine:
     image: openmined/mine.js:hydrogen
-    command: /bin/sh -c "npm install && ./node_modules/.bin/nodemon bin/cli.js train --mine-address auto --contract-address 0x249c008fc4f9c01248f557985f5b5b1aed8eb98f --ethereum-url http://testrpc:8545 --ipfs-url http://ipfs:5001"
+    command: ./node_modules/.bin/nodemon bin/cli.js train --mine-address auto --contract-address 0x249c008fc4f9c01248f557985f5b5b1aed8eb98f --ethereum-url http://testrpc:8545 --ipfs-url http://ipfs:5001
     networks: [mine-dev]
     depends_on: [testrpc]
   notebook:

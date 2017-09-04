@@ -1,6 +1,6 @@
 {
-  "name": "mine.js",
-  "version": "0.0.2",
+  "name": "@openmined/mine.js",
+  "version": "0.1.0",
   "description": "node.JS implementation of a OpenMined data mine",
   "main": "mine.js",
   "private": true,
@@ -11,7 +11,7 @@
     "test": "standard && nyc --all ava",
     "test:coverage": "nyc --all ava",
     "test:watch": "ava --watch",
-    "dev": "docker-compose -f setup/docker-compose.yml up",
+    "dev": "docker-compose -f .docker/docker-compose-dev.yml up",
     "start": "node ./bin/cli.js train",
     "lint": "standard"
   },

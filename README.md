@@ -38,12 +38,10 @@ You need to start the following things before you can use your mine:
 * blockchain (testrpc for now)
 * ipfs daemon
 
-_Note: This seems to cause connection issues, as an alternative run the `start_env.sh` script if you have testrpc and ipfs installed locally_
-
-This repository comes with a [docker-compose file](setup/docker-compose.yml) that allows you to bootstrap _ethereum_, _ipfs_ and any other services via one command. This will also start an instance of the latest `openmined/mine.js:edge` docker container with all local files mounted into it.
+This repository comes with a [docker-compose file](setup/docker-compose-dev.yml) that allows you to bootstrap _blockchain_, _ipfs_ and any other services via one command. This will also start an instance of the latest `openmined/mine.js:edge` docker container with all local files mounted into it.
 This allows development on the code with an auto-reloading docker environment.
 
-_It will not work if you install new dependencies as those are not hot-loaded_
+_It will not work if you install new dependencies as those are not hot-loaded. You have to restart the `mine.js` container to install new dependencies._
 
 ```sh
 # to start the development environment
@@ -56,15 +54,12 @@ Alternatively you can only run the Mine (assuming you have testrpc and ipfs runn
  npm start -- --mine-address <your mine address> --contract-address <a sonar smart contract address>
 ```
 
-You might want to head over to [pySonar](https://github.com/OpenMined/PySonar/blob/master/notebooks/Sonar%20-%20Decentralized%20Model%20Training%20Simulation%20(local%20blockchain).ipynb) and execute the notebook until **Step 1** to bootstrap your blockchain with some models. Feel free to execute additional steps to mock partially trained models.
-
-```sh
-npm start
-```
-
 You should see the following output:
 
 ![mine logs](stdout_progress.png)
+
+If you have the docker setup running you can access the data scientist notebook at [localhost:8888](http://localhost:8888/notebooks/Sonar%20-%20Decentralized%20Model%20Training%20Simulation%20(local%20blockchain).ipynb) and add new models to the blockchain.
+Models will be stored there until you call `docker-compose -f ./docker/docker-compose-dev.yml down`. Use `docker-compose .. stop` to stop the containers without removing any stored data.
 
 ### 🌙 Command Line Interface
 
@@ -72,8 +67,7 @@ To list available commands, execute `npm start -- --help`:
 
 ### 🐞 Known Issues
 
-* with dockerized IPFS/testrpc there are a lot of connection issues
-    * first run on a new docker env is working ~90%
+* connection to dockerized IPFS/testrpc containers outside the docker network are instable
 
 ## ⚖️ License
 
