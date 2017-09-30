@@ -51,6 +51,6 @@ program
     app.checkForModels(mineAddress, contractAddress, web3, ipfs)
   })
 program
-  .command('help',{isDefault: true})
+  .command('help', {isDefault: true})
 
 program.parse(process.argv)
