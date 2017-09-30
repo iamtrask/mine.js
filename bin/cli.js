@@ -43,16 +43,17 @@ program
       const mineAddresses = await web3.eth.getAccounts()
       mineAddress = mineAddresses.length && mineAddresses[0]
     }
-    if (isIPFS.ipfsUrl(options.ipfsUrl)) {
-      const ipfsUrl = options.ipfsUrl || 'http://localhost:5001'
-      // conver to object format as expected by ipfs-api
-      const ipfsUrlOpts = url.parse(ipfsUrl)
-      ipfsUrlOpts.host = ipfsUrlOpts.hostname // use only hostname w/o port
-      const ipfs = ipfsAPI(ipfsUrlOpts)
-      app.checkForModels(mineAddress, contractAddress, web3, ipfs)
-    } else {
+    if (!options.ipfsUrl) {
+      options.ipfsUrl = 'http://localhost:5001'
+    } else if (!isIPFS.ipfsUrl(options.ipfsUrl)) {
       return console.error('Invalid ipfs-url')
     }
+    const ipfsUrl = options.ipfsUrl
+    // conver to object format as expected by ipfs-api
+    const ipfsUrlOpts = url.parse(ipfsUrl)
+    ipfsUrlOpts.host = ipfsUrlOpts.hostname // use only hostname w/o port
+    const ipfs = ipfsAPI(ipfsUrlOpts)
+    app.checkForModels(mineAddress, contractAddress, web3, ipfs)
   })
 program
   .command('help', {isDefault: true})
