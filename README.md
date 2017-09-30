@@ -67,7 +67,7 @@ To list available commands, execute `npm start -- --help`:
 
 ### 🐞 Known Issues
 
-* connection to dockerized IPFS/testrpc containers outside the docker network are instable
+* Connection to dockerized IPFS/testrpc containers outside the docker network are unstable
 
 ## ⚖️ License
 
