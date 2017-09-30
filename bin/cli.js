@@ -55,8 +55,6 @@ program
     }
   })
 program
-  .command('help', {
-    isDefault: true
-  })
+  .command('help', {isDefault: true})
 
 program.parse(process.argv)
