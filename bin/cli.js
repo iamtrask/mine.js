@@ -28,7 +28,7 @@ program
   .option('-i, --ipfs-url [url]', 'Url of the IPFS node (Default: "http://localhost:5001")')
   .option('-e, --ethereum-url [url]', 'Url to the ethereum network to use (Default: "http://localhost:8545")')
   // TODO: Add dev mode with watching
-  .action(async(options) => {
+  .action(async (options) => {
     let mineAddress = options.mineAddress
     const contractAddress = options.contractAddress
 
@@ -43,12 +43,7 @@ program
       const mineAddresses = await web3.eth.getAccounts()
       mineAddress = mineAddresses.length && mineAddresses[0]
     }
-    if (!options.ipfsUrl) {
-      options.ipfsUrl = 'http://localhost:5001'
-    } else if (!isIPFS.ipfsUrl(options.ipfsUrl)) {
-      return console.error('Invalid ipfs-url')
-    }
-    const ipfsUrl = options.ipfsUrl
+    const ipfsUrl = options.ipfsUrl || 'http://localhost:5001'
     // conver to object format as expected by ipfs-api
     const ipfsUrlOpts = url.parse(ipfsUrl)
     ipfsUrlOpts.host = ipfsUrlOpts.hostname // use only hostname w/o port
