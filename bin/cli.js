@@ -1,10 +1,12 @@
 #!/usr/bin/env node
+
 const url = require('url')
 const program = require('commander')
 const app = require('../mine.js')
 const pckg = require('../package.json')
 const Web3 = require('web3')
 const ipfsAPI = require('ipfs-api')
+const isIPFS = require('is-ipfs')
 
 program
   .version(pckg.version)
@@ -41,14 +43,14 @@ program
       const mineAddresses = await web3.eth.getAccounts()
       mineAddress = mineAddresses.length && mineAddresses[0]
     }
-
     const ipfsUrl = options.ipfsUrl || 'http://localhost:5001'
     // conver to object format as expected by ipfs-api
     const ipfsUrlOpts = url.parse(ipfsUrl)
     ipfsUrlOpts.host = ipfsUrlOpts.hostname // use only hostname w/o port
     const ipfs = ipfsAPI(ipfsUrlOpts)
-
     app.checkForModels(mineAddress, contractAddress, web3, ipfs)
   })
+program
+  .command('help', {isDefault: true})
 
 program.parse(process.argv)
