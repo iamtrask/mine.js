@@ -38,7 +38,7 @@ You need to start the following things before you can use your mine:
 * blockchain (testrpc for now)
 * ipfs daemon
 
-This repository comes with a [docker-compose file](.docker/docker-compose-dev.yml) that allows you to bootstrap _blockchain_, _ipfs_ and any other services via one command. This will also start an instance of the latest `openmined/mine.js:edge` docker container with all local files mounted into it.
+This repository comes with a [docker-compose file](.docker/docker-compose.yml) that allows you to bootstrap _blockchain_, _ipfs_ and any other services via one command. This will also start an instance of the latest `openmined/mine.js:edge` docker container with all local files mounted into it.
 This allows development on the code with an auto-reloading docker environment.
 
 _It will not work if you install new dependencies as those are not hot-loaded. You have to restart the `mine.js` container to install new dependencies._
