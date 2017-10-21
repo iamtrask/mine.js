@@ -24,3 +24,4 @@ node_modules/
 # data directory for ipfs/mine data
 /data/ipfs/
 /data/testrpc_persist
+.geth/
