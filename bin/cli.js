@@ -4,7 +4,6 @@ const program = require('commander')
 const app = require('../mine.js')
 const pckg = require('../package.json')
 const Web3 = require('web3')
-const ipfsAPI = require('ipfs-api')
 
 program
   .version(pckg.version)
@@ -42,13 +41,7 @@ program
       mineAddress = mineAddresses.length && mineAddresses[0]
     }
 
-    const ipfsUrl = options.ipfsUrl || 'http://localhost:5001'
-    // conver to object format as expected by ipfs-api
-    const ipfsUrlOpts = url.parse(ipfsUrl)
-    ipfsUrlOpts.host = ipfsUrlOpts.hostname // use only hostname w/o port
-    const ipfs = ipfsAPI(ipfsUrlOpts)
-
-    app.checkForModels(mineAddress, contractAddress, web3, ipfs)
+    app.checkForModels(mineAddress, contractAddress, web3)
   })
 
 program
