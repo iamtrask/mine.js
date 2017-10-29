@@ -46,7 +46,7 @@
   "dependencies": {
     "@openmined/sonar": "git+https://git@github.com/OpenMined/Sonar.git#f687278",
     "commander": "^2.11.0",
-    "ipfs-api": "^14.1.1",
+    "ipfs": "^0.26.0",
     "node-schedule": "^1.2.3",
     "tmp": "0.0.31",
     "web3": "^1.0.0-beta.14"

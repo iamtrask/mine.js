@@ -10,8 +10,18 @@ const tmp = require('tmp')
 const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
+const IPFS = require('./lib/ipfs')
 
-async function checkForModels (mineAddress, contractAddress, web3, ipfs) {
+function checkForModels (mineAddress, contractAddress, web3) {
+  IPFS.connect()
+  .then(ipfs => {
+    console.log(`💾  Connected to IPFS. Online:`, ipfs.isOnline())
+    trainModels(mineAddress, contractAddress, web3, ipfs)
+  })
+  .catch(err => console.error(`ipfs error: `, err))
+}
+
+async function trainModels (mineAddress, contractAddress, web3, ipfs) {
   const sonar = new Sonar(web3, contractAddress, mineAddress)
 
   console.log(`🔎️  Looking for models to train at ${contractAddress} for mine ${mineAddress}`)
