@@ -11,14 +11,20 @@ const path = require('path')
 const fs = require('fs')
 const spawn = require('child_process').spawn
 const IPFS = require('./lib/ipfs')
+const geth = require('./lib/geth')
 
 function checkForModels (mineAddress, contractAddress, web3) {
-  IPFS.connect()
-  .then(ipfs => {
-    console.log(`💾  Connected to IPFS. Online:`, ipfs.isOnline())
-    trainModels(mineAddress, contractAddress, web3, ipfs)
+  geth.connect(mineAddress)
+  .then(() => {
+    console.log(`📄  Connected to Geth`)
+    IPFS.connect()
+    .then(ipfs => {
+      console.log(`💾  Connected to IPFS. Online:`, ipfs.isOnline())
+      trainModels(mineAddress, contractAddress, web3, ipfs)
+    })
+    .catch(err => console.error(`ipfs error: `, err))
   })
-  .catch(err => console.error(`ipfs error: `, err))
+  .catch(err => console.error(`geth error: `, err))
 }
 
 async function trainModels (mineAddress, contractAddress, web3, ipfs) {
