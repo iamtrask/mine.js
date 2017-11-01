@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
-const app = require('../mine.js')
+const Mine = require('../mine.js')
 const pckg = require('../package.json')
-const Web3 = require('web3')
 
 program
   .version(pckg.version)
@@ -37,14 +36,26 @@ program
     const gethPasswordFile = options.gethPasswordFile
     const gethDataDir = options.gethDataDir || '$HOME/Library/Ethereum/rinkeby/'
 
-    const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
+    var mine = new Mine(mineAddress, contractAddress, ethereumUrl)
 
-    if (mineAddress === 'auto') {
-      const mineAddresses = await web3.eth.getAccounts()
-      mineAddress = mineAddresses.length && mineAddresses[0]
-    }
+    mine.on('log', (msg) => {
+      console.log(msg)
+    })
 
-    app.checkForModels(mineAddress, contractAddress, web3, gethDataDir, gethPasswordFile)
+    mine.on('error', (err) => {
+      console.error('error', err)
+    })
+
+    mine.on('connect', async () => {
+      const models = await mine.getModels()
+
+      // Automatically train the first model
+      if (models[0]) {
+        mine.trainModel(models[0])
+      }
+    })
+
+    mine.connect(gethDataDir, gethPasswordFile)
   })
 
 program
