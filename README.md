@@ -3,6 +3,10 @@
 [![Test Status](https://img.shields.io/travis/OpenMined/mine.js/master.svg?style=flat-square)](https://travis-ci.org/OpenMined/mine.js)
 [![Coverage](https://img.shields.io/codecov/c/github/OpenMined/mine.js/master.svg?style=flat-square)](https://codecov.io/gh/OpenMined/Mine.js)
 
+❗
+This library has been deprecated due to changes in strategy and roadmap. To actively contribute based on our current roadmap, checkout [OpenMined](https://github.com/OpenMined/OpenMined), [PySyft](https://github.com/OpenMined/PySyft), or [join our slack](https://openmined.slack.com/messages/team_pysyft)
+---
+
 > nodeJS implementation of an [OpenMined](http://openmined.org) data mine
 
 - [⬆️ Setup](#-setup)
