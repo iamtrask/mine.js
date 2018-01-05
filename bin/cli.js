@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
-const app = require('../mine.js')
+const Mine = require('../mine.js')
 const pckg = require('../package.json')
-const Web3 = require('web3')
 
 program
   .version(pckg.version)
@@ -23,6 +22,8 @@ program
   .option('-c, --contract-address <hexstring>', 'Sonar smart contract address for the mine to use')
   .option('-i, --ipfs-url [url]', 'Url of the IPFS node (Default: "http://localhost:5001")')
   .option('-e, --ethereum-url [url]', 'Url to the ethereum network to use (Default: "http://localhost:8545")')
+  .option('-e, --geth-password-file [path]', 'Optional: Path to the geth password file to use')
+  .option('-e, --geth-data-dir [path]', 'Path to the geth data-dir (Default: "$HOME/Library/Ethereum/rinkeby/")')
   // TODO: Add dev mode with watching
   .action(async (options) => {
     let mineAddress = options.mineAddress
@@ -32,15 +33,29 @@ program
     if (!mineAddress) return console.error('--mine-address required')
     if (!contractAddress) return console.error('--contract-address required')
     const ethereumUrl = options.ethereumUrl || 'http://localhost:8545'
+    const gethPasswordFile = options.gethPasswordFile
+    const gethDataDir = options.gethDataDir || '$HOME/Library/Ethereum/rinkeby/'
 
-    const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
+    var mine = new Mine(mineAddress, contractAddress, ethereumUrl)
 
-    if (mineAddress === 'auto') {
-      const mineAddresses = await web3.eth.getAccounts()
-      mineAddress = mineAddresses.length && mineAddresses[0]
-    }
+    mine.on('log', (msg) => {
+      console.log(msg)
+    })
 
-    app.checkForModels(mineAddress, contractAddress, web3)
+    mine.on('error', (err) => {
+      console.error('error', err)
+    })
+
+    mine.on('connect', async () => {
+      const models = await mine.getModels()
+
+      // Automatically train the first model
+      if (models[0]) {
+        mine.trainModel(models[0])
+      }
+    })
+
+    mine.connect(gethDataDir, gethPasswordFile)
   })
 
 program
