@@ -23,6 +23,8 @@ program
   .option('-c, --contract-address <hexstring>', 'Sonar smart contract address for the mine to use')
   .option('-i, --ipfs-url [url]', 'Url of the IPFS node (Default: "http://localhost:5001")')
   .option('-e, --ethereum-url [url]', 'Url to the ethereum network to use (Default: "http://localhost:8545")')
+  .option('-e, --geth-password-file [path]', 'Optional: Path to the geth password file to use')
+  .option('-e, --geth-data-dir [path]', 'Path to the geth data-dir (Default: "$HOME/Library/Ethereum/rinkeby/")')
   // TODO: Add dev mode with watching
   .action(async (options) => {
     let mineAddress = options.mineAddress
@@ -32,6 +34,8 @@ program
     if (!mineAddress) return console.error('--mine-address required')
     if (!contractAddress) return console.error('--contract-address required')
     const ethereumUrl = options.ethereumUrl || 'http://localhost:8545'
+    const gethPasswordFile = options.gethPasswordFile
+    const gethDataDir = options.gethDataDir || '$HOME/Library/Ethereum/rinkeby/'
 
     const web3 = new Web3(new Web3.providers.HttpProvider(ethereumUrl))
 
@@ -40,7 +44,7 @@ program
       mineAddress = mineAddresses.length && mineAddresses[0]
     }
 
-    app.checkForModels(mineAddress, contractAddress, web3)
+    app.checkForModels(mineAddress, contractAddress, web3, gethDataDir, gethPasswordFile)
   })
 
 program
